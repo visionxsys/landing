@@ -18,12 +18,18 @@
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+            width: 100%;
+            position: relative;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
@@ -185,7 +191,7 @@
         .price span { font-size: 1rem; color: #94a3b8; font-weight: 400; }
         .price-features { list-style: none; margin-bottom: 2.5rem; }
         .price-features li { color: #94a3b8; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
-        .price-features li::before { content: '✓'; color: var(--accent); }
+        .price-features li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900;; color: var(--accent); }
         .price-card .btn { width: 100%; text-align: center; }
 
         /* Testimonials */
@@ -228,11 +234,39 @@
         .fade-in.appear { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
+            body { overflow-x: hidden; width: 100%; }
+            .hero-content { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; padding: 0 5%; }
+            .hero-cta { flex-direction: column; width: 100%; align-items: center; }
+            .hero-cta .btn { width: 100%; text-align: center; margin: 0.5rem 0; }
+            .hero h1 { font-size: clamp(1.8rem, 8vw, 2.5rem); word-break: break-word; line-height: 1.2; }
+            .hero p { font-size: clamp(1rem, 5vw, 1.2rem); }
             .process-line { display: none; }
             .process-steps { flex-direction: column; gap: 2rem; align-items: center; }
             .step { width: 100%; }
+            .feature-grid, .pricing-grid, .test-grid { display: flex; flex-direction: column; align-items: center; }
+            .feature-card, .price-card, .test-card { width: 100%; max-width: 100%; text-align: center; }
+            .feature-icon { margin: 0 auto 1.5rem; }
             .price-card.featured { transform: none; }
+            .nav-links { display: none; }
+            .stats { flex-direction: column; gap: 2rem; align-items: center; }
+            .shape { display: none; }
+            h2, .section-header h2 { font-size: clamp(2rem, 8vw, 2.5rem) !important; word-break: break-word; line-height: 1.2; text-align: center; }
+            h3, .price { font-size: clamp(1.5rem, 6vw, 2rem) !important; word-break: break-word; text-align: center; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        i[class*="fa-"] {
+            animation-iteration-count: 1 !important;
+        }
+        [class*="-card"]:hover i[class*="fa-"], 
+        [class*="-item"]:hover i[class*="fa-"], 
+        [class*="-pillar"]:hover i[class*="fa-"], 
+        .step:hover i[class*="fa-"],
+        .pillar:hover i[class*="fa-"],
+        i[class*="fa-"]:hover {
+            animation-iteration-count: infinite !important;
         }
     </style>
 </head>
@@ -288,32 +322,32 @@
         </div>
         <div class="feature-grid">
             <div class="feature-card fade-in">
-                <div class="feature-icon">⚡</div>
+                <div class="feature-icon"><i class="fa-solid fa-bolt fa-bounce"></i></div>
                 <h3>Real-time Analytics</h3>
                 <p>Process millions of events per second with millisecond latency. Make decisions based on what's happening right now.</p>
             </div>
             <div class="feature-card fade-in">
-                <div class="feature-icon">🧠</div>
+                <div class="feature-icon"><i class="fa-solid fa-brain fa-beat"></i></div>
                 <h3>Neural Processing</h3>
                 <p>Advanced deep learning models that automatically identify anomalies, patterns, and trends in your complex datasets.</p>
             </div>
             <div class="feature-card fade-in">
-                <div class="feature-icon">☁️</div>
+                <div class="feature-icon"><i class="fa-solid fa-cloud fa-fade"></i></div>
                 <h3>Cloud Infrastructure</h3>
                 <p>Globally distributed, auto-scaling architecture ensures your analytics platform grows seamlessly with your business.</p>
             </div>
             <div class="feature-card fade-in">
-                <div class="feature-icon">🎯</div>
+                <div class="feature-icon"><i class="fa-solid fa-bullseye fa-beat-fade"></i></div>
                 <h3>Predictive Modeling</h3>
                 <p>Forecast future outcomes with high accuracy using our proprietary auto-ML capabilities and historical data.</p>
             </div>
             <div class="feature-card fade-in">
-                <div class="feature-icon">🔗</div>
+                <div class="feature-icon"><i class="fa-solid fa-link fa-flip"></i></div>
                 <h3>API Integration</h3>
                 <p>Connect to over 200+ data sources instantly. Restful APIs and webhooks for seamless workflow automation.</p>
             </div>
             <div class="feature-card fade-in">
-                <div class="feature-icon">🛡️</div>
+                <div class="feature-icon"><i class="fa-solid fa-shield-halved fa-bounce"></i></div>
                 <h3>Security Shield</h3>
                 <p>Enterprise-grade encryption at rest and in transit. SOC2 compliant and GDPR ready out of the box.</p>
             </div>
