@@ -17,11 +17,16 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+            width: 100%;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             background-color: var(--black);
             color: var(--white);
-            overflow-x: hidden;
         }
 
         h1, h2, h3, .nav-brand, .btn { font-family: 'Bebas Neue', cursive; letter-spacing: 2px; }
@@ -126,7 +131,7 @@
         
         .features-list { list-style: none; margin-bottom: 2rem; text-align: left; }
         .features-list li { padding: 0.8rem 0; border-bottom: 1px solid #222; font-weight: 700; color: #ccc; }
-        .features-list li::before { content: '✓'; color: var(--red); margin-right: 10px; font-weight: 900; }
+        .features-list li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900;; color: var(--red); margin-right: 10px; font-weight: 900; }
         
         .price-card .btn { width: 100%; }
 
@@ -153,13 +158,36 @@
         .slide-in.appear { opacity: 1; transform: translateX(0); }
 
         @media (max-width: 768px) {
+            body { overflow-x: hidden; width: 100%; }
             .nav-links { display: none; }
-            .hero h1 { font-size: 4rem; }
-            .btn-secondary { margin-left: 0; margin-top: 1rem; }
+            .hero-content { transform: skewY(0); display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; padding: 0 5%; }
+            .hero-content .btn { width: 100%; margin: 0.5rem 0; transform: skewX(0); text-align: center; }
+            .hero-content .btn span { transform: skewX(0); }
+            .hero h1 { font-size: clamp(2.5rem, 12vw, 4rem); word-break: break-word; line-height: 1; }
+            .hero p { font-size: clamp(0.9rem, 4vw, 1.2rem); }
+            .btn-secondary { margin-left: 0; }
             .price-card.featured { transform: scale(1); }
             .stats-bar { flex-direction: column; gap: 2rem; transform: skewY(0); margin-top: 0; }
             .stat { transform: skewY(0); }
-            .hero-content { transform: skewY(0); }
+            .prog-grid, .price-grid { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+            .prog-card, .price-card { width: 100%; max-width: 100%; text-align: center; }
+            h2, .section-header h2, .cta h2 { font-size: clamp(2rem, 8vw, 2.5rem) !important; word-break: break-word; line-height: 1.2; text-align: center; }
+            h3, .price { font-size: clamp(1.5rem, 6vw, 2rem) !important; word-break: break-word; text-align: center; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        i[class*="fa-"] {
+            animation-iteration-count: 1 !important;
+        }
+        [class*="-card"]:hover i[class*="fa-"], 
+        [class*="-item"]:hover i[class*="fa-"], 
+        [class*="-pillar"]:hover i[class*="fa-"], 
+        .step:hover i[class*="fa-"],
+        .pillar:hover i[class*="fa-"],
+        i[class*="fa-"]:hover {
+            animation-iteration-count: infinite !important;
         }
     </style>
 </head>
@@ -208,37 +236,37 @@
         </div>
         <div class="prog-grid">
             <div class="prog-card slide-in">
-                <div class="prog-icon">🏋️</div>
+                <div class="prog-icon"><i class="fa-solid fa-dumbbell fa-bounce"></i></div>
                 <h3>Strength Training</h3>
                 <p>Build raw power and muscle mass with our Olympic-grade free weights and machines.</p>
                 <div class="difficulty">⚫⚫⚫⚪</div>
             </div>
             <div class="prog-card slide-in">
-                <div class="prog-icon">🏃</div>
+                <div class="prog-icon"><i class="fa-solid fa-shoe-prints fa-fade"></i></div>
                 <h3>HIIT Cardio</h3>
                 <p>High-intensity interval training designed to shred fat and boost endurance.</p>
                 <div class="difficulty">⚫⚫⚫⚫</div>
             </div>
             <div class="prog-card slide-in">
-                <div class="prog-icon">🥊</div>
+                <div class="prog-icon"><i class="fa-solid fa-hand-fist fa-beat"></i></div>
                 <h3>Boxing & MMA</h3>
                 <p>Learn striking and grappling techniques from professional fighters.</p>
                 <div class="difficulty">⚫⚫⚫⚪</div>
             </div>
             <div class="prog-card slide-in">
-                <div class="prog-icon">🧘</div>
+                <div class="prog-icon"><i class="fa-solid fa-yin-yang fa-fade"></i></div>
                 <h3>Yoga & Mobility</h3>
                 <p>Improve flexibility, balance, and core strength in our dedicated studio.</p>
                 <div class="difficulty">⚫⚫⚪⚪</div>
             </div>
             <div class="prog-card slide-in">
-                <div class="prog-icon">⛓️</div>
+                <div class="prog-icon"><i class="fa-solid fa-link fa-bounce"></i></div>
                 <h3>CrossFit</h3>
                 <p>Constantly varied functional movements executed at high intensity.</p>
                 <div class="difficulty">⚫⚫⚫⚫</div>
             </div>
             <div class="prog-card slide-in">
-                <div class="prog-icon">⏱️</div>
+                <div class="prog-icon"><i class="fa-solid fa-stopwatch fa-beat"></i></div>
                 <h3>Circuit Training</h3>
                 <p>Fast-paced full body workouts perfect for those on a tight schedule.</p>
                 <div class="difficulty">⚫⚫⚪⚪</div>

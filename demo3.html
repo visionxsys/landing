@@ -18,11 +18,16 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+            width: 100%;
+        }
+
         body {
             font-family: 'Source Sans 3', sans-serif;
             background-color: var(--cream);
             color: var(--dark);
-            overflow-x: hidden;
         }
 
         h1, h2, h3, .nav-brand { font-family: 'Montserrat', sans-serif; }
@@ -143,7 +148,7 @@
         .pkg-price { font-size: 3rem; font-family: 'Montserrat'; font-weight: 800; color: var(--ocean); margin-bottom: 2rem; }
         .pkg-features { list-style: none; margin-bottom: 2.5rem; text-align: left; }
         .pkg-features li { padding: 0.8rem 0; border-bottom: 1px solid #eee; }
-        .pkg-features li::before { content: '✈️'; margin-right: 10px; }
+        .pkg-features li::before { content: '\f072'; font-family: 'Font Awesome 6 Free'; font-weight: 900;; margin-right: 10px; }
         
         /* Footer */
         footer { background: var(--dark); color: white; padding: 5rem 5% 2rem; }
@@ -158,17 +163,41 @@
         .fade-in.appear { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 768px) {
+            body { overflow-x: hidden; width: 100%; }
             .nav-links { display: none; }
-            .hero h1 { font-size: 3.5rem; }
+            .hero-content { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; padding: 0 5%; }
+            .hero h1 { font-size: clamp(2rem, 10vw, 3.5rem); word-break: break-word; line-height: 1.2; }
+            .hero p { font-size: clamp(1rem, 5vw, 1.2rem); }
+            .hero-content .btn { width: 100%; margin: 0.5rem 0; text-align: center; }
+            .btn-secondary { margin-left: 0; }
             .pkg-card.featured { transform: scale(1); }
-            .btn-secondary { margin-left: 0; margin-top: 1rem; }
+            .dest-grid, .pkg-grid, .pillars { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+            .dest-card, .pkg-card, .pillar { width: 100%; max-width: 100%; text-align: center; }
+            .stats { flex-direction: column; gap: 2rem; align-items: center; }
+            h2, .section-header h2 { font-size: clamp(2rem, 8vw, 2.5rem) !important; word-break: break-word; line-height: 1.2; text-align: center; }
+            h3, .pkg-price { font-size: clamp(1.5rem, 6vw, 2rem) !important; word-break: break-word; text-align: center; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        i[class*="fa-"] {
+            animation-iteration-count: 1 !important;
+        }
+        [class*="-card"]:hover i[class*="fa-"], 
+        [class*="-item"]:hover i[class*="fa-"], 
+        [class*="-pillar"]:hover i[class*="fa-"], 
+        .step:hover i[class*="fa-"],
+        .pillar:hover i[class*="fa-"],
+        i[class*="fa-"]:hover {
+            animation-iteration-count: infinite !important;
         }
     </style>
 </head>
 <body>
 
     <nav class="navbar" id="navbar">
-        <a href="#" class="nav-brand">🧭 Wanderlust</a>
+        <a href="#" class="nav-brand"><i class="fa-solid fa-compass fa-spin"></i> Wanderlust</a>
         <ul class="nav-links">
             <li><a href="#destinations">Destinations</a></li>
             <li><a href="#packages">Packages</a></li>
@@ -178,7 +207,7 @@
 
     <section class="hero">
         <div class="hero-content fade-in appear">
-            <div class="compass-icon">🧭</div>
+            <div class="compass-icon"><i class="fa-solid fa-compass fa-spin"></i></div>
             <h1>Discover The World's <br>Hidden Gems</h1>
             <p>Curated adventures that take you beyond the ordinary. From mountain peaks to ocean depths, your journey begins here.</p>
             <a href="#destinations" class="btn btn-primary">Plan Your Journey</a>
@@ -193,37 +222,37 @@
         </div>
         <div class="dest-grid">
             <div class="dest-card bg-1 fade-in">
-                <div class="dest-icon">🏔️</div>
+                <div class="dest-icon"><i class="fa-solid fa-mountain fa-bounce"></i></div>
                 <h3>Swiss Alps</h3>
                 <p>Adventure & Skiing</p>
                 <div class="price-rating"><span>From $1,200</span><span>⭐⭐⭐⭐⭐</span></div>
             </div>
             <div class="dest-card bg-2 fade-in">
-                <div class="dest-icon">⛩️</div>
+                <div class="dest-icon"><i class="fa-solid fa-torii-gate fa-fade"></i></div>
                 <h3>Kyoto, Japan</h3>
                 <p>Culture & Heritage</p>
                 <div class="price-rating"><span>From $1,500</span><span>⭐⭐⭐⭐⭐</span></div>
             </div>
             <div class="dest-card bg-3 fade-in">
-                <div class="dest-icon">🏕️</div>
+                <div class="dest-icon"><i class="fa-solid fa-campground fa-beat"></i></div>
                 <h3>Patagonia</h3>
                 <p>Wilderness Trekking</p>
                 <div class="price-rating"><span>From $2,100</span><span>⭐⭐⭐⭐⭐</span></div>
             </div>
             <div class="dest-card bg-4 fade-in">
-                <div class="dest-icon">🏖️</div>
+                <div class="dest-icon"><i class="fa-solid fa-umbrella-beach fa-bounce"></i></div>
                 <h3>Santorini</h3>
                 <p>Luxury Relaxation</p>
                 <div class="price-rating"><span>From $1,800</span><span>⭐⭐⭐⭐⭐</span></div>
             </div>
             <div class="dest-card bg-5 fade-in">
-                <div class="dest-icon">🌴</div>
+                <div class="dest-icon"><i class="fa-solid fa-tree fa-fade"></i></div>
                 <h3>Bali</h3>
                 <p>Tropical Retreat</p>
                 <div class="price-rating"><span>From $900</span><span>⭐⭐⭐⭐⭐</span></div>
             </div>
             <div class="dest-card bg-6 fade-in">
-                <div class="dest-icon">🧊</div>
+                <div class="dest-icon"><i class="fa-solid fa-icicles fa-beat"></i></div>
                 <h3>Iceland</h3>
                 <p>Nordic Exploration</p>
                 <div class="price-rating"><span>From $1,600</span><span>⭐⭐⭐⭐⭐</span></div>
@@ -256,22 +285,22 @@
         </div>
         <div class="pillars">
             <div class="pillar fade-in">
-                <div class="pillar-icon">🗺️</div>
+                <div class="pillar-icon"><i class="fa-solid fa-map fa-fade"></i></div>
                 <h3>Expert Guides</h3>
                 <p>Local experts who know the hidden spots and stories of every destination.</p>
             </div>
             <div class="pillar fade-in">
-                <div class="pillar-icon">🔄</div>
+                <div class="pillar-icon"><i class="fa-solid fa-rotate-right fa-spin"></i></div>
                 <h3>Flexible Plans</h3>
                 <p>Free cancellations and easy rescheduling because life happens.</p>
             </div>
             <div class="pillar fade-in">
-                <div class="pillar-icon">🌱</div>
+                <div class="pillar-icon"><i class="fa-solid fa-seedling fa-fade"></i></div>
                 <h3>Sustainable Travel</h3>
                 <p>Eco-friendly partnerships that respect local communities and nature.</p>
             </div>
             <div class="pillar fade-in">
-                <div class="pillar-icon">🎧</div>
+                <div class="pillar-icon"><i class="fa-solid fa-headphones fa-bounce"></i></div>
                 <h3>24/7 Support</h3>
                 <p>We are always one call away, no matter what time zone you are in.</p>
             </div>
@@ -324,7 +353,7 @@
     <footer>
         <div class="footer-grid">
             <div>
-                <a href="#" class="nav-brand" style="margin-bottom: 1rem; display:inline-block;">🧭 Wanderlust</a>
+                <a href="#" class="nav-brand" style="margin-bottom: 1rem; display:inline-block;"><i class="fa-solid fa-compass fa-spin"></i> Wanderlust</a>
                 <p style="color: #ccc; font-size: 0.9rem;">Your journey of a thousand miles begins with a single click. Discover the world with Wanderlust.</p>
             </div>
             <div class="footer-links">

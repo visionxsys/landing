@@ -97,7 +97,7 @@
             margin: 0 auto; position: relative;
         }
         .divider::before {
-            content: '☕'; position: absolute; top: -14px; left: 50%;
+            content: '\f0f4'; font-family: 'Font Awesome 6 Free'; font-weight: 900;; position: absolute; top: -14px; left: 50%;
             transform: translateX(-50%); background-color: var(--cream);
             padding: 0 10px; font-size: 1.2rem; color: var(--brown);
         }
@@ -167,17 +167,40 @@
         .fade-in.appear { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 768px) {
-            .nav-links { display: none; } /* Add hamburger logic for full impl */
-            .hero-cta { display: flex; flex-direction: column; gap: 1rem; align-items: center; }
+            body { overflow-x: hidden; width: 100%; }
+            .nav-links { display: none; }
+            .hero-content { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; padding: 0 5%; }
+            .hero-cta { display: flex; flex-direction: column; gap: 1rem; align-items: center; width: 100%; }
+            .hero-cta .btn { width: 100%; text-align: center; }
             .btn-outline { margin-left: 0; }
-            .hero h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: clamp(1.8rem, 8vw, 2.5rem); word-break: break-word; line-height: 1.2; }
+            .hero p { font-size: clamp(1rem, 5vw, 1.2rem); }
+            .menu-grid, .exp-grid { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+            .menu-item, .exp-pillar { width: 100%; max-width: 100%; text-align: center; }
+            h2, .section-header h2 { font-size: clamp(2rem, 8vw, 2.5rem) !important; word-break: break-word; line-height: 1.2; text-align: center; }
+            h3, .menu-price { font-size: clamp(1.5rem, 6vw, 2rem) !important; word-break: break-word; text-align: center; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        i[class*="fa-"] {
+            animation-iteration-count: 1 !important;
+        }
+        [class*="-card"]:hover i[class*="fa-"], 
+        [class*="-item"]:hover i[class*="fa-"], 
+        [class*="-pillar"]:hover i[class*="fa-"], 
+        .step:hover i[class*="fa-"],
+        .pillar:hover i[class*="fa-"],
+        i[class*="fa-"]:hover {
+            animation-iteration-count: infinite !important;
         }
     </style>
 </head>
 <body>
 
     <nav class="navbar" id="navbar">
-        <a href="#" class="logo-text"><span class="logo-icon">☕</span> Brew & Bean</a>
+        <a href="#" class="logo-text"><span class="logo-icon"><i class="fa-solid fa-mug-hot fa-bounce"></i></span> Brew & Bean</a>
         <ul class="nav-links">
             <li><a href="#story">Our Story</a></li>
             <li><a href="#menu">Menu</a></li>
@@ -214,37 +237,37 @@
         </div>
         <div class="menu-grid">
             <div class="menu-item fade-in">
-                <div class="menu-icon">🌱</div>
+                <div class="menu-icon"><i class="fa-solid fa-seedling fa-fade"></i></div>
                 <h3>Ethiopian Yirgacheffe</h3>
                 <div class="menu-price">$4.50</div>
                 <p>Single origin. Light roast with bright floral notes, hints of bergamot, and a clean tea-like finish.</p>
             </div>
             <div class="menu-item fade-in">
-                <div class="menu-icon">⛰️</div>
+                <div class="menu-icon"><i class="fa-solid fa-mountain fa-beat"></i></div>
                 <h3>Colombian Supremo</h3>
                 <div class="menu-price">$3.75</div>
                 <p>Medium roast. Balanced and smooth with notes of milk chocolate, sweet caramel, and toasted nuts.</p>
             </div>
             <div class="menu-item fade-in">
-                <div class="menu-icon">🔥</div>
+                <div class="menu-icon"><i class="fa-solid fa-fire fa-beat-fade"></i></div>
                 <h3>Sumatra Mandheling</h3>
                 <div class="menu-price">$4.00</div>
                 <p>Dark roast. Full-bodied, earthy, and bold with deep notes of dark chocolate and subtle spice.</p>
             </div>
             <div class="menu-item fade-in">
-                <div class="menu-icon">🍯</div>
+                <div class="menu-icon"><i class="fa-solid fa-jar fa-bounce"></i></div>
                 <h3>Caramel Macchiato</h3>
                 <div class="menu-price">$5.25</div>
                 <p>Freshly steamed milk with vanilla-flavored syrup marked with espresso and finished with a caramel drizzle.</p>
             </div>
             <div class="menu-item fade-in">
-                <div class="menu-icon">🍵</div>
+                <div class="menu-icon"><i class="fa-solid fa-mug-saucer fa-fade"></i></div>
                 <h3>Matcha Latte</h3>
                 <div class="menu-price">$5.50</div>
                 <p>Premium ceremonial grade matcha green tea whisked with steamed oat milk and a touch of honey.</p>
             </div>
             <div class="menu-item fade-in">
-                <div class="menu-icon">❄️</div>
+                <div class="menu-icon"><i class="fa-solid fa-snowflake fa-spin"></i></div>
                 <h3>Cold Brew Classic</h3>
                 <div class="menu-price">$4.50</div>
                 <p>Our signature blend steeped slow and cold for 18 hours to create a perfectly smooth, low-acidity cup.</p>
@@ -259,17 +282,17 @@
         </div>
         <div class="exp-grid">
             <div class="exp-pillar fade-in">
-                <div class="exp-icon">🌿</div>
+                <div class="exp-icon"><i class="fa-solid fa-leaf fa-fade"></i></div>
                 <h3>Farm to Cup</h3>
                 <p>We partner directly with farmers to ensure fair wages, sustainable practices, and the highest quality beans.</p>
             </div>
             <div class="exp-pillar fade-in">
-                <div class="exp-icon">⏱️</div>
+                <div class="exp-icon"><i class="fa-solid fa-stopwatch fa-beat"></i></div>
                 <h3>Master Roasters</h3>
                 <p>Our beans are roasted in small batches daily by artisans who understand the subtle chemistry of heat and time.</p>
             </div>
             <div class="exp-pillar fade-in">
-                <div class="exp-icon">🛋️</div>
+                <div class="exp-icon"><i class="fa-solid fa-couch fa-bounce"></i></div>
                 <h3>Cozy Spaces</h3>
                 <p>More than a coffee shop, we offer a warm sanctuary. Exposed brick, soft jazz, and the rich aroma of espresso.</p>
             </div>
@@ -309,7 +332,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-col">
-                <a href="#" class="logo-text" style="color: var(--caramel); margin-bottom: 1rem;"><span class="logo-icon">☕</span> Brew & Bean</a>
+                <a href="#" class="logo-text" style="color: var(--caramel); margin-bottom: 1rem;"><span class="logo-icon"><i class="fa-solid fa-mug-hot fa-bounce"></i></span> Brew & Bean</a>
                 <p>Crafting moments of joy, one cup at a time.</p>
             </div>
             <div class="footer-col">
