@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew & Bean | Artisan Coffee Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fdf6e3;
+            --brown: #3e2723;
+            --caramel: #c9a84c;
+            --orange: #d4740e;
+            --espresso: #1a0e08;
+            --text-dark: #2c1e16;
+            --text-light: #f5f5dc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
+
+        /* Navbar */
+        .navbar {
+            position: fixed; top: 0; width: 100%;
+            padding: 1.5rem 5%; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            background: transparent; transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(253, 246, 227, 0.95);
+            box-shadow: 0 4px 15px rgba(62, 39, 35, 0.1);
+            padding: 1rem 5%;
+        }
+        .navbar.scrolled .nav-links a, .navbar.scrolled .logo-text { color: var(--espresso); }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif; font-size: 2rem;
+            font-weight: 700; color: var(--text-light); text-decoration: none;
+            display: flex; align-items: center; gap: 10px; transition: color 0.4s;
+        }
+        .logo-icon { font-size: 1.5rem; color: var(--caramel); }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-light); text-decoration: none;
+            font-weight: 400; font-size: 1.1rem; transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -5px; left: 0; background-color: var(--caramel);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--caramel) !important; }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh; position: relative;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; color: var(--text-light);
+            background: url('resources/images/hero_coffee.png') center/cover fixed;
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(26, 14, 8, 0.6), rgba(62, 39, 35, 0.7));
+        }
+        .hero-content { position: relative; z-index: 10; max-width: 800px; padding: 0 20px; }
+        .hero h1 { font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.2; margin-bottom: 1rem; font-style: italic; }
+        .hero p { font-size: 1.2rem; font-weight: 300; margin-bottom: 2.5rem; letter-spacing: 1px; }
+        
+        .btn {
+            display: inline-block; padding: 1rem 2.5rem; border: none;
+            font-family: 'Lato', sans-serif; font-size: 1rem; text-transform: uppercase;
+            letter-spacing: 2px; cursor: pointer; transition: all 0.3s; text-decoration: none;
+        }
+        .btn-primary { background-color: var(--caramel); color: var(--espresso); font-weight: 700; }
+        .btn-primary:hover { background-color: var(--orange); color: white; transform: translateY(-3px); }
+        .btn-outline { background-color: transparent; border: 1px solid var(--caramel); color: var(--caramel); margin-left: 1rem; }
+        .btn-outline:hover { background-color: var(--caramel); color: var(--espresso); }
+
+        /* Story Section */
+        .story { padding: 8rem 5%; text-align: center; }
+        .section-header { margin-bottom: 4rem; position: relative; }
+        .section-header h2 { font-size: 3rem; color: var(--espresso); margin-bottom: 1rem; }
+        .divider {
+            width: 100px; height: 3px; background-color: var(--caramel);
+            margin: 0 auto; position: relative;
+        }
+        .divider::before {
+            content: '☕'; position: absolute; top: -14px; left: 50%;
+            transform: translateX(-50%); background-color: var(--cream);
+            padding: 0 10px; font-size: 1.2rem; color: var(--brown);
+        }
+        .story p { max-width: 700px; margin: 0 auto 2rem; font-size: 1.1rem; color: #5d4037; }
+
+        /* Menu */
+        .menu { padding: 8rem 5%; background-color: #f5ebe0; }
+        .menu-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem; max-width: 1200px; margin: 0 auto;
+        }
+        .menu-item {
+            background: white; padding: 2.5rem; text-align: center;
+            border: 1px solid #eaddd0; box-shadow: 0 10px 30px rgba(62, 39, 35, 0.05);
+            transition: all 0.4s ease; position: relative; overflow: hidden;
+        }
+        .menu-item::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--caramel); transform: scaleX(0); transition: transform 0.4s;
+        }
+        .menu-item:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(62, 39, 35, 0.1); }
+        .menu-item:hover::before { transform: scaleX(1); }
+        .menu-icon { font-size: 2.5rem; color: var(--caramel); margin-bottom: 1rem; }
+        .menu-item h3 { font-size: 1.5rem; color: var(--espresso); margin-bottom: 0.5rem; }
+        .menu-price { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--orange); margin-bottom: 1rem; }
+        .menu-item p { color: #795548; font-size: 0.95rem; }
+
+        /* Experience Pillars */
+        .experience { padding: 8rem 5%; background: var(--espresso); color: var(--text-light); text-align: center; }
+        .experience h2 { color: var(--caramel); }
+        .exp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 4rem; max-width: 1000px; margin: 4rem auto 0; }
+        .exp-pillar h3 { font-size: 1.8rem; margin: 1.5rem 0 1rem; color: var(--cream); }
+        .exp-icon {
+            width: 80px; height: 80px; border: 2px solid var(--caramel); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 2rem;
+            margin: 0 auto; color: var(--caramel); transition: all 0.3s;
+        }
+        .exp-pillar:hover .exp-icon { background: var(--caramel); color: var(--espresso); transform: rotate(10deg); }
+
+        /* Testimonials Marquee */
+        .testimonials { padding: 6rem 0; overflow: hidden; background: white; }
+        .marquee { display: flex; white-space: nowrap; animation: scroll 30s linear infinite; gap: 3rem; padding: 0 2rem; }
+        .marquee:hover { animation-play-state: paused; }
+        .test-card {
+            min-width: 350px; background: var(--cream); padding: 2rem;
+            border-left: 4px solid var(--caramel); white-space: normal;
+        }
+        .test-text { font-style: italic; color: var(--brown); margin-bottom: 1.5rem; font-family: 'Playfair Display', serif; font-size: 1.1rem; }
+        .test-author { display: flex; align-items: center; gap: 1rem; }
+        .initials {
+            width: 40px; height: 40px; border-radius: 50%; background: var(--caramel);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--espresso); font-weight: bold; font-family: 'Lato', sans-serif;
+        }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Footer */
+        footer { padding: 5rem 5% 2rem; background: var(--brown); color: var(--cream); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem; border-bottom: 1px solid rgba(253, 246, 227, 0.1); padding-bottom: 3rem; margin-bottom: 2rem; }
+        .footer-col h4 { font-size: 1.5rem; color: var(--caramel); margin-bottom: 1.5rem; }
+        .footer-col p, .footer-col a { color: #d7ccc8; text-decoration: none; margin-bottom: 0.8rem; display: block; transition: color 0.3s; }
+        .footer-col a:hover { color: var(--caramel); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; color: #a1887f; }
+        .footer-bottom img { height: 25px; opacity: 0.8; }
+
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in.appear { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Add hamburger logic for full impl */
+            .hero-cta { display: flex; flex-direction: column; gap: 1rem; align-items: center; }
+            .btn-outline { margin-left: 0; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo-text"><span class="logo-icon">☕</span> Brew & Bean</a>
+        <ul class="nav-links">
+            <li><a href="#story">Our Story</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="index.html">Back to Showcase</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content fade-in">
+            <h1>Crafted With Passion,<br>Served With Love</h1>
+            <p>Experience the finest artisan coffee blends from around the world, roasted to perfection in small batches right here in our shop.</p>
+            <div class="hero-cta">
+                <a href="#menu" class="btn btn-primary">Explore Our Menu</a>
+                <a href="#story" class="btn btn-outline">Our Story</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="story" class="story">
+        <div class="section-header fade-in">
+            <h2>The Art of Roasting</h2>
+            <div class="divider"></div>
+        </div>
+        <p class="fade-in">Every cup tells a story. At Brew & Bean, our journey begins on sustainable farms across the globe and culminates in the carefully poured rosetta on your morning latte.</p>
+        <p class="fade-in">We believe that great coffee is both an art and a science. That's why we meticulously source, roast, and brew to bring out the unique flavor profile of every bean.</p>
+    </section>
+
+    <section id="menu" class="menu">
+        <div class="section-header fade-in">
+            <h2>Signature Selections</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item fade-in">
+                <div class="menu-icon">🌱</div>
+                <h3>Ethiopian Yirgacheffe</h3>
+                <div class="menu-price">$4.50</div>
+                <p>Single origin. Light roast with bright floral notes, hints of bergamot, and a clean tea-like finish.</p>
+            </div>
+            <div class="menu-item fade-in">
+                <div class="menu-icon">⛰️</div>
+                <h3>Colombian Supremo</h3>
+                <div class="menu-price">$3.75</div>
+                <p>Medium roast. Balanced and smooth with notes of milk chocolate, sweet caramel, and toasted nuts.</p>
+            </div>
+            <div class="menu-item fade-in">
+                <div class="menu-icon">🔥</div>
+                <h3>Sumatra Mandheling</h3>
+                <div class="menu-price">$4.00</div>
+                <p>Dark roast. Full-bodied, earthy, and bold with deep notes of dark chocolate and subtle spice.</p>
+            </div>
+            <div class="menu-item fade-in">
+                <div class="menu-icon">🍯</div>
+                <h3>Caramel Macchiato</h3>
+                <div class="menu-price">$5.25</div>
+                <p>Freshly steamed milk with vanilla-flavored syrup marked with espresso and finished with a caramel drizzle.</p>
+            </div>
+            <div class="menu-item fade-in">
+                <div class="menu-icon">🍵</div>
+                <h3>Matcha Latte</h3>
+                <div class="menu-price">$5.50</div>
+                <p>Premium ceremonial grade matcha green tea whisked with steamed oat milk and a touch of honey.</p>
+            </div>
+            <div class="menu-item fade-in">
+                <div class="menu-icon">❄️</div>
+                <h3>Cold Brew Classic</h3>
+                <div class="menu-price">$4.50</div>
+                <p>Our signature blend steeped slow and cold for 18 hours to create a perfectly smooth, low-acidity cup.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="experience">
+        <div class="section-header fade-in">
+            <h2>The Brew & Bean Difference</h2>
+            <div class="divider" style="background-color: var(--espresso);"></div>
+        </div>
+        <div class="exp-grid">
+            <div class="exp-pillar fade-in">
+                <div class="exp-icon">🌿</div>
+                <h3>Farm to Cup</h3>
+                <p>We partner directly with farmers to ensure fair wages, sustainable practices, and the highest quality beans.</p>
+            </div>
+            <div class="exp-pillar fade-in">
+                <div class="exp-icon">⏱️</div>
+                <h3>Master Roasters</h3>
+                <p>Our beans are roasted in small batches daily by artisans who understand the subtle chemistry of heat and time.</p>
+            </div>
+            <div class="exp-pillar fade-in">
+                <div class="exp-icon">🛋️</div>
+                <h3>Cozy Spaces</h3>
+                <p>More than a coffee shop, we offer a warm sanctuary. Exposed brick, soft jazz, and the rich aroma of espresso.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="marquee">
+            <!-- Double the content for smooth infinite scroll -->
+            <div class="test-card">
+                <p class="test-text">"The best flat white I've had outside of Melbourne. The atmosphere is perfect for working or relaxing."</p>
+                <div class="test-author"><div class="initials">EJ</div><span>Emily J.</span></div>
+            </div>
+            <div class="test-card">
+                <p class="test-text">"Their Ethiopian pour-over is a revelation. You can really taste the care they put into their roasting process."</p>
+                <div class="test-author"><div class="initials">MR</div><span>Marcus R.</span></div>
+            </div>
+            <div class="test-card">
+                <p class="test-text">"I come here every morning. The staff remembers my name and my order. True hospitality."</p>
+                <div class="test-author"><div class="initials">SL</div><span>Sarah L.</span></div>
+            </div>
+            <div class="test-card">
+                <p class="test-text">"The best flat white I've had outside of Melbourne. The atmosphere is perfect for working or relaxing."</p>
+                <div class="test-author"><div class="initials">EJ</div><span>Emily J.</span></div>
+            </div>
+            <div class="test-card">
+                <p class="test-text">"Their Ethiopian pour-over is a revelation. You can really taste the care they put into their roasting process."</p>
+                <div class="test-author"><div class="initials">MR</div><span>Marcus R.</span></div>
+            </div>
+            <div class="test-card">
+                <p class="test-text">"I come here every morning. The staff remembers my name and my order. True hospitality."</p>
+                <div class="test-author"><div class="initials">SL</div><span>Sarah L.</span></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <a href="#" class="logo-text" style="color: var(--caramel); margin-bottom: 1rem;"><span class="logo-icon">☕</span> Brew & Bean</a>
+                <p>Crafting moments of joy, one cup at a time.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Visit Us</h4>
+                <p>123 Artisan Ave<br>Coffee District, CD 90210</p>
+                <p>Mon-Fri: 6am - 7pm<br>Sat-Sun: 7am - 8pm</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="#story">Our Story</a>
+                <a href="#menu">Menu</a>
+                <a href="#">Wholesale</a>
+                <a href="index.html">Showcase Home</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Brew & Bean. All rights reserved.</p>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span>Created by</span>
+                <img src="resources/images/logo_no_bg.png" alt="VisionXSystems">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // Intersection Observer for animations
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('appear');
+                observer.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => appearOnScroll.observe(fader));
+    </script>
+</body>
+</html>

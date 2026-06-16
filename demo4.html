@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IronForge | Premium Fitness & Gym</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --red: #dc2626;
+            --dark-red: #991b1b;
+            --gray: #374151;
+            --white: #ffffff;
+            --ember: #ff4500;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .nav-brand, .btn { font-family: 'Bebas Neue', cursive; letter-spacing: 2px; }
+
+        /* Navbar */
+        .navbar {
+            position: fixed; top: 0; width: 100%; padding: 1rem 5%;
+            background: var(--black); border-bottom: 2px solid var(--red);
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+        }
+
+        .nav-brand {
+            font-size: 2.5rem; color: var(--white); text-decoration: none;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .nav-brand span { color: var(--red); }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: var(--white); text-decoration: none; font-weight: 700;
+            text-transform: uppercase; transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--red); }
+
+        /* Hero */
+        .hero {
+            height: 100vh; position: relative;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center;
+            background: url('resources/images/hero_fitness.png') center/cover no-repeat;
+        }
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(45deg, rgba(10,10,10,0.9) 0%, rgba(153,27,27,0.6) 100%);
+        }
+        
+        .hero-content { position: relative; z-index: 10; transform: skewY(-2deg); }
+        
+        .hero h1 { font-size: clamp(4rem, 10vw, 8rem); line-height: 0.9; margin-bottom: 1rem; text-shadow: 4px 4px 0px var(--dark-red); }
+        .hero p { font-size: 1.2rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 3rem; color: #ccc; transform: skewY(2deg); }
+
+        .btn {
+            display: inline-block; padding: 1rem 3rem; font-size: 1.5rem;
+            text-decoration: none; text-transform: uppercase; border: none; cursor: pointer;
+            transform: skewX(-10deg); transition: all 0.3s;
+        }
+        .btn span { display: inline-block; transform: skewX(10deg); }
+        .btn-primary { background: var(--red); color: white; }
+        .btn-primary:hover { background: var(--ember); box-shadow: 0 0 20px rgba(220,38,38,0.8); }
+        .btn-secondary { background: transparent; border: 2px solid var(--white); color: white; margin-left: 1rem; }
+        .btn-secondary:hover { background: var(--white); color: var(--black); }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--red); padding: 2rem 5%;
+            display: flex; justify-content: space-around; flex-wrap: wrap;
+            transform: skewY(-2deg); margin-top: -20px; position: relative; z-index: 20;
+        }
+        .stat { transform: skewY(2deg); text-align: center; }
+        .stat-num { font-family: 'Bebas Neue'; font-size: 3rem; margin-bottom: -10px; }
+        .stat-label { font-weight: 700; text-transform: uppercase; }
+
+        /* Programs Grid */
+        .programs { padding: 8rem 5%; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { font-size: 4rem; color: var(--white); }
+        .section-header h2 span { color: var(--red); }
+
+        .prog-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem; max-width: 1200px; margin: 0 auto;
+        }
+        .prog-card {
+            background: #111; border: 1px solid #222; padding: 2rem;
+            text-align: center; transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .prog-card::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(220,38,38,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .prog-card:hover { border-color: var(--red); transform: translateY(-10px); }
+        .prog-card:hover::before { left: 100%; }
+        
+        .prog-icon { font-size: 3rem; color: var(--red); margin-bottom: 1rem; }
+        .prog-card h3 { font-size: 2rem; margin-bottom: 1rem; }
+        .prog-card p { color: #888; font-size: 0.9rem; margin-bottom: 1rem; }
+        .difficulty { color: var(--ember); font-size: 1.2rem; }
+
+        /* Pricing */
+        .pricing { padding: 8rem 5%; background: #050505; }
+        .price-grid { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+        .price-card {
+            background: #111; padding: 3rem; width: 100%; max-width: 350px;
+            text-align: center; border: 2px solid #222;
+        }
+        .price-card.featured { border-color: var(--red); transform: scale(1.05); box-shadow: 0 0 30px rgba(220,38,38,0.2); }
+        .price-card h3 { font-size: 2.5rem; color: var(--gray); margin-bottom: 1rem; }
+        .price-card.featured h3 { color: var(--red); }
+        .price { font-family: 'Bebas Neue'; font-size: 4rem; margin-bottom: 2rem; }
+        .price span { font-size: 1.5rem; font-family: 'Roboto'; color: #666; }
+        
+        .features-list { list-style: none; margin-bottom: 2rem; text-align: left; }
+        .features-list li { padding: 0.8rem 0; border-bottom: 1px solid #222; font-weight: 700; color: #ccc; }
+        .features-list li::before { content: '✓'; color: var(--red); margin-right: 10px; font-weight: 900; }
+        
+        .price-card .btn { width: 100%; }
+
+        /* CTA */
+        .cta {
+            padding: 8rem 5%; text-align: center;
+            background: linear-gradient(rgba(10,10,10,0.8), rgba(10,10,10,0.9)), url('resources/images/hero_fitness.png') center/cover;
+            border-top: 5px solid var(--red); border-bottom: 5px solid var(--red);
+        }
+        .cta h2 { font-size: 5rem; text-shadow: 3px 3px 0 var(--red); margin-bottom: 2rem; }
+
+        /* Footer */
+        footer { padding: 4rem 5% 2rem; background: var(--black); text-align: center; }
+        .footer-brand { font-size: 3rem; color: var(--white); margin-bottom: 1rem; display: inline-block; }
+        .footer-brand span { color: var(--red); }
+        .footer-links { margin: 2rem 0; }
+        .footer-links a { color: #888; text-decoration: none; margin: 0 1rem; font-weight: 700; text-transform: uppercase; transition: color 0.3s;}
+        .footer-links a:hover { color: var(--white); }
+        .footer-bottom { margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #222; color: #555; display: flex; justify-content: space-between; align-items: center;}
+        .footer-bottom img { height: 30px; filter: grayscale(100%); opacity: 0.5; transition: all 0.3s; }
+        .footer-bottom img:hover { filter: none; opacity: 1; }
+
+        .slide-in { opacity: 0; transform: translateX(-50px); transition: all 0.6s ease-out; }
+        .slide-in.appear { opacity: 1; transform: translateX(0); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 4rem; }
+            .btn-secondary { margin-left: 0; margin-top: 1rem; }
+            .price-card.featured { transform: scale(1); }
+            .stats-bar { flex-direction: column; gap: 2rem; transform: skewY(0); margin-top: 0; }
+            .stat { transform: skewY(0); }
+            .hero-content { transform: skewY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="nav-brand">IRON<span>FORGE</span></a>
+        <ul class="nav-links">
+            <li><a href="#programs">Programs</a></li>
+            <li><a href="#pricing">Membership</a></li>
+            <li><a href="index.html">Showcase</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content slide-in appear">
+            <h1>FORGE YOUR<br>LEGACY</h1>
+            <p>The ultimate training experience. Unmatched results.</p>
+            <a href="#pricing" class="btn btn-primary"><span>START YOUR JOURNEY</span></a>
+            <a href="#programs" class="btn btn-secondary"><span>VIEW PROGRAMS</span></a>
+        </div>
+    </section>
+
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="stat-num" data-target="15000">0</div>
+            <div class="stat-label">Active Members</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num" data-target="200">0</div>
+            <div class="stat-label">Classes / Week</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num" data-target="50">0</div>
+            <div class="stat-label">Expert Trainers</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num" data-target="24">0</div>
+            <div class="stat-label">Hour Access</div>
+        </div>
+    </div>
+
+    <section id="programs" class="programs">
+        <div class="section-header slide-in">
+            <h2>TRAINING <span>PROGRAMS</span></h2>
+        </div>
+        <div class="prog-grid">
+            <div class="prog-card slide-in">
+                <div class="prog-icon">🏋️</div>
+                <h3>Strength Training</h3>
+                <p>Build raw power and muscle mass with our Olympic-grade free weights and machines.</p>
+                <div class="difficulty">⚫⚫⚫⚪</div>
+            </div>
+            <div class="prog-card slide-in">
+                <div class="prog-icon">🏃</div>
+                <h3>HIIT Cardio</h3>
+                <p>High-intensity interval training designed to shred fat and boost endurance.</p>
+                <div class="difficulty">⚫⚫⚫⚫</div>
+            </div>
+            <div class="prog-card slide-in">
+                <div class="prog-icon">🥊</div>
+                <h3>Boxing & MMA</h3>
+                <p>Learn striking and grappling techniques from professional fighters.</p>
+                <div class="difficulty">⚫⚫⚫⚪</div>
+            </div>
+            <div class="prog-card slide-in">
+                <div class="prog-icon">🧘</div>
+                <h3>Yoga & Mobility</h3>
+                <p>Improve flexibility, balance, and core strength in our dedicated studio.</p>
+                <div class="difficulty">⚫⚫⚪⚪</div>
+            </div>
+            <div class="prog-card slide-in">
+                <div class="prog-icon">⛓️</div>
+                <h3>CrossFit</h3>
+                <p>Constantly varied functional movements executed at high intensity.</p>
+                <div class="difficulty">⚫⚫⚫⚫</div>
+            </div>
+            <div class="prog-card slide-in">
+                <div class="prog-icon">⏱️</div>
+                <h3>Circuit Training</h3>
+                <p>Fast-paced full body workouts perfect for those on a tight schedule.</p>
+                <div class="difficulty">⚫⚫⚪⚪</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="section-header slide-in">
+            <h2>JOIN THE <span>FORGE</span></h2>
+        </div>
+        <div class="price-grid">
+            <div class="price-card slide-in">
+                <h3>BASIC</h3>
+                <div class="price">$39<span>/mo</span></div>
+                <ul class="features-list">
+                    <li>Cardio & Weights Access</li>
+                    <li>Locker Room Access</li>
+                    <li>Free WiFi</li>
+                </ul>
+                <a href="#" class="btn btn-secondary"><span>CHOOSE PLAN</span></a>
+            </div>
+            <div class="price-card featured slide-in">
+                <h3>PRO</h3>
+                <div class="price">$69<span>/mo</span></div>
+                <ul class="features-list">
+                    <li>Full Gym Access</li>
+                    <li>Unlimited Group Classes</li>
+                    <li>1 PT Session / Month</li>
+                    <li>Sauna & Steam Room</li>
+                </ul>
+                <a href="#" class="btn btn-primary"><span>CHOOSE PLAN</span></a>
+            </div>
+            <div class="price-card slide-in">
+                <h3>ELITE</h3>
+                <div class="price">$99<span>/mo</span></div>
+                <ul class="features-list">
+                    <li>All PRO Features</li>
+                    <li>Unlimited PT Sessions</li>
+                    <li>Recovery Zone Access</li>
+                    <li>Bring a Guest Free</li>
+                </ul>
+                <a href="#" class="btn btn-secondary"><span>CHOOSE PLAN</span></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta slide-in">
+        <h2>YOUR TRANSFORMATION<br>STARTS NOW</h2>
+        <a href="#pricing" class="btn btn-primary" style="transform:scale(1.2) skewX(-10deg);"><span>JOIN IRONFORGE</span></a>
+    </section>
+
+    <footer>
+        <a href="#" class="footer-brand">IRON<span>FORGE</span></a>
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Trainers</a>
+            <a href="#">Schedule</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 IRONFORGE GYM.</p>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span>POWERED BY</span>
+                <img src="resources/images/logo_no_bg.png" alt="VisionXSystems">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const faders = document.querySelectorAll('.slide-in');
+        const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('appear');
+                observer.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => appearOnScroll.observe(fader));
+
+        const counters = document.querySelectorAll('.stat-num');
+        const speed = 100;
+
+        const startCounters = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / speed;
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 20);
+                        } else {
+                            counter.innerText = target + (target > 50 ? '+' : '');
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(counter);
+                }
+            });
+        });
+
+        counters.forEach(counter => startCounters.observe(counter));
+    </script>
+</body>
+</html>

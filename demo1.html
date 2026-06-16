@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusAI | The Future of Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0b1e;
+            --text-color: #e2e8f0;
+            --primary: #00a8ff;
+            --secondary: #7c3aed;
+            --accent: #00ffd5;
+            --surface: rgba(255, 255, 255, 0.03);
+            --surface-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+
+        /* Navbar */
+        .navbar {
+            position: fixed; top: 0; width: 100%;
+            padding: 1.5rem 5%; z-index: 100;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(11, 11, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--surface-border);
+            transition: all 0.3s ease;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem; font-weight: 700; color: white;
+            text-decoration: none; display: flex; align-items: center; gap: 8px;
+        }
+
+        .logo-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            color: var(--text-color); text-decoration: none;
+            font-weight: 500; transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        .btn {
+            padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600;
+            text-decoration: none; cursor: pointer; transition: all 0.3s; border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; box-shadow: 0 4px 15px rgba(0, 168, 255, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 168, 255, 0.5); }
+        .btn-outline {
+            background: transparent; border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover { background: rgba(0, 168, 255, 0.1); }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            position: relative; padding: 0 5%;
+            background: linear-gradient(rgba(11,11,30,0.8), rgba(11,11,30,0.9)), url('resources/images/hero_tech.png') center/cover;
+        }
+
+        .hero-content {
+            max-width: 800px; position: relative; z-index: 10;
+        }
+
+        .hero-badge {
+            display: inline-block; padding: 0.5rem 1rem;
+            background: rgba(0, 255, 213, 0.1); border: 1px solid rgba(0, 255, 213, 0.3);
+            color: var(--accent); border-radius: 20px; font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 5vw, 5rem); line-height: 1.1;
+            margin-bottom: 1.5rem; color: white;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem; color: #94a3b8; margin-bottom: 2rem; max-width: 600px;
+        }
+
+        .hero-cta { display: flex; gap: 1rem; }
+
+        /* Shapes */
+        .shape { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 1; }
+        .shape-1 { width: 300px; height: 300px; background: rgba(0, 168, 255, 0.2); top: 20%; right: 10%; }
+        .shape-2 { width: 400px; height: 400px; background: rgba(124, 58, 237, 0.2); bottom: -10%; left: -10%; }
+
+        /* Stats */
+        .stats {
+            display: flex; justify-content: space-around; flex-wrap: wrap;
+            padding: 4rem 5%; border-top: 1px solid var(--surface-border);
+            border-bottom: 1px solid var(--surface-border); background: var(--surface);
+        }
+        .stat-item { text-align: center; }
+        .stat-num {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem;
+            font-weight: 700; color: white; margin-bottom: 0.5rem;
+        }
+        .stat-label { color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
+
+        /* Features */
+        .features { padding: 8rem 5%; }
+        .section-title { text-align: center; margin-bottom: 4rem; }
+        .section-title h2 { font-size: 2.5rem; color: white; margin-bottom: 1rem; }
+        .section-title p { color: #94a3b8; max-width: 600px; margin: 0 auto; }
+
+        .feature-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;
+        }
+        .feature-card {
+            background: var(--surface); border: 1px solid var(--surface-border);
+            padding: 2.5rem; border-radius: 16px; transition: all 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px); border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 168, 255, 0.1);
+        }
+        .feature-icon {
+            width: 50px; height: 50px; border-radius: 12px;
+            background: rgba(0, 168, 255, 0.1); display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.5rem; color: var(--accent); font-size: 1.5rem;
+        }
+        .feature-card h3 { color: white; margin-bottom: 1rem; font-size: 1.3rem; }
+        .feature-card p { color: #94a3b8; font-size: 0.95rem; }
+
+        /* How it works */
+        .process { padding: 8rem 5%; background: rgba(0,0,0,0.3); }
+        .process-steps { display: flex; justify-content: space-between; position: relative; max-width: 1000px; margin: 0 auto; }
+        .step { text-align: center; position: relative; z-index: 2; width: 30%; }
+        .step-num {
+            width: 60px; height: 60px; background: var(--bg-color); border: 2px solid var(--secondary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; font-weight: 700; color: white; margin: 0 auto 1.5rem;
+        }
+        .step h3 { color: white; margin-bottom: 0.5rem; }
+        .step p { color: #94a3b8; font-size: 0.9rem; }
+        .process-line {
+            position: absolute; top: 30px; left: 15%; right: 15%; height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); z-index: 1;
+        }
+
+        /* Pricing */
+        .pricing { padding: 8rem 5%; }
+        .pricing-grid { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+        .price-card {
+            background: var(--surface); border: 1px solid var(--surface-border);
+            padding: 3rem 2rem; border-radius: 16px; width: 100%; max-width: 350px;
+            transition: transform 0.3s;
+        }
+        .price-card.featured {
+            border-color: var(--secondary); transform: scale(1.05);
+            background: linear-gradient(180deg, rgba(124, 58, 237, 0.1) 0%, var(--surface) 100%);
+        }
+        .price-card h3 { color: white; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .price { font-size: 3rem; font-family: 'Space Grotesk'; font-weight: 700; color: white; margin-bottom: 2rem; }
+        .price span { font-size: 1rem; color: #94a3b8; font-weight: 400; }
+        .price-features { list-style: none; margin-bottom: 2.5rem; }
+        .price-features li { color: #94a3b8; margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+        .price-features li::before { content: '✓'; color: var(--accent); }
+        .price-card .btn { width: 100%; text-align: center; }
+
+        /* Testimonials */
+        .testimonials { padding: 8rem 5%; background: var(--surface); }
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .test-card { padding: 2rem; background: var(--bg-color); border-radius: 12px; border: 1px solid var(--surface-border); }
+        .test-card p { font-style: italic; color: #e2e8f0; margin-bottom: 1.5rem; }
+        .test-author h4 { color: white; }
+        .test-author span { color: var(--primary); font-size: 0.85rem; }
+
+        /* CTA */
+        .cta {
+            padding: 8rem 5%; text-align: center;
+            background: linear-gradient(45deg, rgba(0, 168, 255, 0.1), rgba(124, 58, 237, 0.1));
+        }
+        .cta h2 { font-size: 3rem; color: white; margin-bottom: 1.5rem; }
+        
+        /* Footer */
+        footer { padding: 4rem 5% 2rem; border-top: 1px solid var(--surface-border); }
+        .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; margin-bottom: 3rem; }
+        .footer-col h4 { color: white; margin-bottom: 1.5rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.8rem; }
+        .footer-col ul a { color: #94a3b8; text-decoration: none; transition: color 0.3s; }
+        .footer-col ul a:hover { color: var(--primary); }
+        .footer-bottom {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 2rem; border-top: 1px solid var(--surface-border); color: #94a3b8; font-size: 0.9rem;
+        }
+        .footer-bottom img { height: 30px; filter: grayscale(100%); opacity: 0.7; transition: all 0.3s; }
+        .footer-bottom img:hover { filter: none; opacity: 1; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 213, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 213, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 213, 0); }
+        }
+
+        .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+        .fade-in.appear { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .process-line { display: none; }
+            .process-steps { flex-direction: column; gap: 2rem; align-items: center; }
+            .step { width: 100%; }
+            .price-card.featured { transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo-text"><span class="logo-dot"></span> NexusAI</a>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#pricing">Pricing</a>
+            <a href="index.html">Back to Showcase</a>
+        </div>
+    </nav>
+
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">v2.0 Now Available</div>
+            <h1>The Future of <br><span>AI-Powered Analytics</span></h1>
+            <p id="typewriter">Transform your data into actionable insights with our next-generation machine learning platform.</p>
+            <div class="hero-cta">
+                <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
+                <a href="#features" class="btn btn-outline">Explore Features</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stat-item fade-in">
+            <div class="stat-num" data-target="99.9">0</div>
+            <div class="stat-label">Uptime Percentage</div>
+        </div>
+        <div class="stat-item fade-in">
+            <div class="stat-num" data-target="50">0</div>
+            <div class="stat-label">Million Data Points</div>
+        </div>
+        <div class="stat-item fade-in">
+            <div class="stat-num" data-target="10">0</div>
+            <div class="stat-label">Enterprise Clients</div>
+        </div>
+        <div class="stat-item fade-in">
+            <div class="stat-num" data-target="24">0</div>
+            <div class="stat-label">Hour Support</div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="section-title fade-in">
+            <h2>Intelligent by Design</h2>
+            <p>Our platform combines cutting-edge AI algorithms with intuitive design to give you unparalleled visibility into your business metrics.</p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon">⚡</div>
+                <h3>Real-time Analytics</h3>
+                <p>Process millions of events per second with millisecond latency. Make decisions based on what's happening right now.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🧠</div>
+                <h3>Neural Processing</h3>
+                <p>Advanced deep learning models that automatically identify anomalies, patterns, and trends in your complex datasets.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">☁️</div>
+                <h3>Cloud Infrastructure</h3>
+                <p>Globally distributed, auto-scaling architecture ensures your analytics platform grows seamlessly with your business.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🎯</div>
+                <h3>Predictive Modeling</h3>
+                <p>Forecast future outcomes with high accuracy using our proprietary auto-ML capabilities and historical data.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🔗</div>
+                <h3>API Integration</h3>
+                <p>Connect to over 200+ data sources instantly. Restful APIs and webhooks for seamless workflow automation.</p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon">🛡️</div>
+                <h3>Security Shield</h3>
+                <p>Enterprise-grade encryption at rest and in transit. SOC2 compliant and GDPR ready out of the box.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="process">
+        <div class="section-title fade-in">
+            <h2>How It Works</h2>
+            <p>Three simple steps to unlock the power of your data.</p>
+        </div>
+        <div class="process-steps">
+            <div class="process-line"></div>
+            <div class="step fade-in">
+                <div class="step-num">1</div>
+                <h3>Connect</h3>
+                <p>Integrate your data sources with a single click.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-num">2</div>
+                <h3>Analyze</h3>
+                <p>Our AI automatically processes and structures your data.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step-num">3</div>
+                <h3>Act</h3>
+                <p>Receive actionable insights and automated reports.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <div class="section-title fade-in">
+            <h2>Simple, Transparent Pricing</h2>
+            <p>Choose the plan that fits your scale.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="price-card fade-in">
+                <h3>Starter</h3>
+                <div class="price">$29<span>/mo</span></div>
+                <ul class="price-features">
+                    <li>Up to 1M events/month</li>
+                    <li>Basic dashboards</li>
+                    <li>Email support</li>
+                </ul>
+                <a href="#" class="btn btn-outline">Start Free Trial</a>
+            </div>
+            <div class="price-card featured fade-in">
+                <h3>Professional</h3>
+                <div class="price">$79<span>/mo</span></div>
+                <ul class="price-features">
+                    <li>Up to 10M events/month</li>
+                    <li>Advanced AI insights</li>
+                    <li>Custom API integrations</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="#" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="price-card fade-in">
+                <h3>Enterprise</h3>
+                <div class="price">Custom</div>
+                <ul class="price-features">
+                    <li>Unlimited events</li>
+                    <li>Dedicated server</li>
+                    <li>On-premise option</li>
+                    <li>24/7 Phone support</li>
+                </ul>
+                <a href="#" class="btn btn-outline">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="section-title fade-in">
+            <h2>Trusted by Industry Leaders</h2>
+        </div>
+        <div class="test-grid">
+            <div class="test-card fade-in">
+                <p>"NexusAI completely transformed how we view our user data. We identified a new market segment within weeks."</p>
+                <div class="test-author">
+                    <h4>TechCorp Global</h4>
+                    <span>CTO</span>
+                </div>
+            </div>
+            <div class="test-card fade-in">
+                <p>"The predictive modeling is eerily accurate. It's like having a crystal ball for our quarterly revenue."</p>
+                <div class="test-author">
+                    <h4>DataFlow Inc.</h4>
+                    <span>VP of Operations</span>
+                </div>
+            </div>
+            <div class="test-card fade-in">
+                <p>"Implementation took days instead of months. The seamless integration with our existing stack was a game-changer."</p>
+                <div class="test-author">
+                    <h4>CloudNine Systems</h4>
+                    <span>Lead Architect</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta fade-in">
+        <h2>Ready to unleash your data?</h2>
+        <p style="margin-bottom: 2rem; color: #e2e8f0;">Join thousands of companies making smarter decisions with NexusAI.</p>
+        <a href="#" class="btn btn-primary">Start Your Free Trial Now</a>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <a href="#" class="logo-text"><span class="logo-dot"></span> NexusAI</a>
+                <p style="color: #94a3b8; margin-top: 1rem; max-width: 250px;">Empowering businesses with intelligent data analytics.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Integrations</a></li>
+                    <li><a href="#">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 NexusAI. All rights reserved.</p>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span>Created by</span>
+                <img src="resources/images/logo_no_bg.png" alt="VisionXSystems">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animations
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('appear');
+                observer.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => appearOnScroll.observe(fader));
+
+        // Number Counter Animation
+        const counters = document.querySelectorAll('.stat-num');
+        const speed = 200;
+
+        const startCounters = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const inc = target / speed;
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 10);
+                        } else {
+                            counter.innerText = target + (target === 99.9 ? '%' : (target > 24 ? 'K+' : ''));
+                            if(target === 50) counter.innerText = '50M+';
+                            if(target === 99.9) counter.innerText = '99.9%';
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(counter);
+                }
+            });
+        });
+
+        counters.forEach(counter => startCounters.observe(counter));
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(11, 11, 30, 0.95)';
+                nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+            } else {
+                nav.style.background = 'rgba(11, 11, 30, 0.8)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
